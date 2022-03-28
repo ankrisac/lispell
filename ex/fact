@@ -1,0 +1,10 @@
+(def factorial {
+  lambda [n]
+    (if [= n 0]
+      1
+      (* n (factorial (- n 1))))})
+
+(println "Give me a number")
+(def num (eval (parse (read))))
+
+(println num "! = " (factorial num))

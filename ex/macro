@@ -1,0 +1,38 @@
+(println "A Functional Program")
+
+(def defmacro
+  (macro [name args ..body]
+    `(def ~name
+        (macro [~@args] (do ~@..body)))))
+
+(defmacro defn [name args ..body]
+  `(def ~name (lambda [~@args] (do ~@..body))))
+
+
+`(I haven't been able to implement comments because they keep
+interfering with the parser, so I am going to use the quasi quoting
+instead)
+
+`(This function below is quite weird. I had actually forgotten to
+implement isListEmpty, and had this this realization that I could
+abuse the exception system to figure out if a list is empty or not)
+
+(defn empty? [list]
+  (= (head (catch (head list))) :Err))
+
+(defn !empty? [list] (not (empty? list)))
+
+(defn map [fn list]
+  (if (!empty? list)
+    (cons (fn (head list)) (map fn (tail list)))
+    ()))
+
+(defn double [n] (* n 2))
+(defn list [..args] ..args)
+
+(def mylist '(3 1 4 1 5 9 2 6 5))
+
+(println "input list   : " mylist)
+(println "doubled list : " (map double mylist))
+
+(defn myprint [])
